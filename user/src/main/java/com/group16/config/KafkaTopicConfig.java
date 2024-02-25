@@ -9,6 +9,6 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfig {
     @Bean
     public NewTopic javaGuidesTopic(){
-        return TopicBuilder.name("topic1").build();
+        return TopicBuilder.name("userEvents").build();
     }
 }
