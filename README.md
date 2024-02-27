@@ -8,6 +8,7 @@ microservices, event-driven Ecommerce
     * ALWAYS create a PR (PULL-REQUEST) to the main branch
     * Which means, NEVER push in main
     * Merge atleast once a week in main before the Sprint Review (Tuesday)
+    * Keep the commit comments (GIT) or Summary (Github Desktop) clean and understandable.
 * Document your code as much as possible :white_check_mark:
 * keep an eye on the readme, other guideliens could be written later :grin:
 
