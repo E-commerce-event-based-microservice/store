@@ -24,3 +24,21 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+
+  user_service:
+    build:
+      context: /user
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - kafka
+
+  inventory_service:
+    build:
+      context: /inventory
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - kafka

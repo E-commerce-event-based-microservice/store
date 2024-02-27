@@ -18,3 +18,6 @@ public class InventoryService {
         // For example, initialize inventory for the new user, etc.
     }
 }
+
+
+

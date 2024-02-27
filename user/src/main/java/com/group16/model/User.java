@@ -34,12 +34,6 @@ public class User {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @Column()
-    private LocalDateTime registrationDate = LocalDateTime.now();
-
-    @Column
-    private LocalDateTime lastUpdatedDate;
-
     @Column(length = 100, unique = true)
     private String token;
 
@@ -97,22 +91,6 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public LocalDateTime getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(LocalDateTime registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public LocalDateTime getLastUpdatedDate() {
-        return lastUpdatedDate;
-    }
-
-    public void setLastUpdatedDate(LocalDateTime lastUpdatedDate) {
-        this.lastUpdatedDate = lastUpdatedDate;
     }
 
     public String getToken() {
