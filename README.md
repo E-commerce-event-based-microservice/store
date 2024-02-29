@@ -2,7 +2,13 @@
 microservices, event-driven Ecommerce
 
 ## Guidelines:
-* Don't work on the main/master branch. Create you own branches :warning: 
+* Don't work on the main/master branch. Create you own branches :warning:
+  * Format of branch name: <ITEM-ID>_<DEV-NAME>_<ITEM NAME>
+  * Since branch protection can not be applied in private repo:
+    * ALWAYS create a PR (PULL-REQUEST) to the main branch
+    * Which means, NEVER push in main
+    * Merge atleast once a week in main before the Sprint Review (Tuesday)
+    * Keep the commit comments (GIT) or Summary (Github Desktop) clean and understandable.
 * Document your code as much as possible :white_check_mark:
 * keep an eye on the readme, other guideliens could be written later :grin:
 
@@ -16,7 +22,7 @@ which will help us also in deployment
  *let's agree on using MySQL database for consistency
 
 # playaround
-after finishing from developing your service, you are encourged to
+after finishing from developing your service, you are encouraged to
 fork the repo and create other services and try to use get familiar with apache kafka.
 
 # message broker
