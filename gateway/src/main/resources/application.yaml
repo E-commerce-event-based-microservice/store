@@ -13,10 +13,12 @@ spring:
         uri: ${USERS_ROUTE_URI:http://localhost:8081}
         predicates:
         - Path=/users/**
-       
+        filters:
+        # - PrefixPath=/api
       - id: orders-route
         uri: ${ORDERS_ROUTE_URI:http://localhost:8082}
         predicates:
         - Path=/orders/**
-        
-     
+        filters:
+        # - PrefixPath=/api
+       
