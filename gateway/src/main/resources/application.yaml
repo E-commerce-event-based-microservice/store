@@ -19,6 +19,7 @@ spring:
         uri: ${ORDERS_ROUTE_URI:http://localhost:8082}
         predicates:
         - Path=/orders/**
+        - Header=Authorization, Bearer [A-Za-z0-9-_.]*
         filters:
         # - PrefixPath=/api
        
