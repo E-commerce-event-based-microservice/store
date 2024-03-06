@@ -53,27 +53,12 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(length = 100, nullable = false)
-    private String firstNames;
-
-    @Column(length = 100, nullable = false)
-    private String lastName;
-
-    @Column(length = 100, nullable = false)
-    private String password;
-
-    @Column(length = 50, nullable = false)
-    private String role;
-
-    @Column(length = 100, nullable = false)
+    @Column
     private String email;
-
-    @Column(nullable = false)
-    private String phoneNumber;
-
-    @Column(length = 100, unique = true)
-    private String token;
+    @Column
+    private String password;
+    @Column
+    private String role;
 
     public long getId() {
         return id;
@@ -83,20 +68,12 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getFirstNames() {
-        return firstNames;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFirstNames(String firstNames) {
-        this.firstNames = firstNames;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setPassword(String password) {
@@ -109,29 +86,5 @@ public class User implements UserDetails {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

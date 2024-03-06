@@ -33,7 +33,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+//    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         return userService.findUserById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -44,22 +45,22 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        return userService.findUserById(id)
-                .map(existingUser -> {
-                    existingUser.setFirstNames(userDetails.getFirstNames());
-                    existingUser.setLastName(userDetails.getLastName());
-                    existingUser.setPassword(userDetails.getPassword()); // Consider encryption or hashing
-                    existingUser.setRole(userDetails.getRole());
-                    existingUser.setEmail(userDetails.getEmail());
-                    existingUser.setPhoneNumber(userDetails.getPhoneNumber());
-                    // Token should not be updated casually. Handle with care.
-                    User updatedUser = userService.saveUser(existingUser);
-                    return ResponseEntity.ok(updatedUser);
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+//        return userService.findUserById(id)
+//                .map(existingUser -> {
+//                    existingUser.setFirstNames(userDetails.getFirstNames());
+//                    existingUser.setLastName(userDetails.getLastName());
+//                    existingUser.setPassword(userDetails.getPassword()); // Consider encryption or hashing
+//                    existingUser.setRole(userDetails.getRole());
+//                    existingUser.setEmail(userDetails.getEmail());
+//                    existingUser.setPhoneNumber(userDetails.getPhoneNumber());
+//                    // Token should not be updated casually. Handle with care.
+//                    User updatedUser = userService.saveUser(existingUser);
+//                    return ResponseEntity.ok(updatedUser);
+//                })
+//                .orElseGet(() -> ResponseEntity.notFound().build());
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
