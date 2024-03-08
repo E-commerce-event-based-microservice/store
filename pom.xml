@@ -13,7 +13,9 @@
     <modules>
         <module>user</module>
         <module>notification</module>
-        <module>inventory</module>
+        <module>order</module>
+        <module>gateway</module>
+        <module>common</module>
     </modules>
 
   <properties>
@@ -93,10 +95,9 @@
             </dependency>
             <dependency>
                 <groupId>com.group16</groupId>
-                <artifactId>inventory</artifactId>
+                <artifactId>order</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
