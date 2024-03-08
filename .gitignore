@@ -3,6 +3,12 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+cart-service/
+common/
+item-service/
+store-api/
+trade-service/
+logs
 
 ### STS ###
 .apt_generated

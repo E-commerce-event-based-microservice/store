@@ -12,11 +12,6 @@
 
     <modules>
         <module>user</module>
-        <module>cart-service</module>
-        <module>item-service</module>
-        <module>store-api</module>
-        <module>trade-service</module>
-        <module>common</module>
         <module>notification</module>
         <module>inventory</module>
     </modules>
