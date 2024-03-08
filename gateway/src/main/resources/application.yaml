@@ -1,0 +1,29 @@
+
+
+server:
+ port: 8080
+
+spring:
+  threads:
+    virtual:
+      enabled: true
+  cloud.gateway.mvc:
+    routes:
+      - id: users-route
+        uri: ${USERS_ROUTE_URI:http://localhost:8081}
+        predicates:
+        - Path=/users/**
+        filters:
+        # - PrefixPath=/api
+      - id: orders-route
+        uri: ${ORDERS_ROUTE_URI:http://localhost:8082}
+        predicates:
+        - Path=/orders/**
+        - Header=Authorization, Bearer [A-Za-z0-9-_.]*
+        filters:
+        # - PrefixPath=/api
+      
+logging:
+  level:
+    org.springframework.cloud.gateway.server.mvc: TRACE
+    org.springframework.web: TRACE
