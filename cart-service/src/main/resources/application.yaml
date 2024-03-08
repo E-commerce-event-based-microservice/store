@@ -1,0 +1,45 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: cart-service
+  cloud:
+    nacos:
+      server-addr:127.0.0.1:8848
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:mysql://${store.db.host}:3306/cart-service
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ${store.db.pw}
+mybatis-plus:
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+  global-config:
+    db-config:
+      update-strategy: not_null
+      id-type: auto
+logging:
+  level:
+    com.group16.item: debug
+  pattern:
+    dateformat: HH:mm:ss:SSS
+  file:
+    path: "logs/${spring.application.name}"
+
+knife4j:
+  enable: true
+  openapi:
+    title: Store shopping cart interface document
+    description: "Store shopping cart interface document"
+    group:
+      default:
+        group-name: default
+        api-rule: package
+        api-rule-resources:
+          - com.group16.cart.controller
+
+feign:
+  okhttp:
+    enabled: true # turn on okhttp

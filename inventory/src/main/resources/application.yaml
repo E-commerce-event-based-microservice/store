@@ -1,0 +1,42 @@
+server:
+  port: 8089
+spring:
+  application:
+    name: inventory
+#  cloud:
+#    nacos:
+#      server-addr:127.0.0.1:8848
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:mysql://${store.db.host}:3306/inventory_db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ${store.db.pw}
+mybatis-plus:
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      update-strategy: not_null
+      id-type: auto
+logging:
+  level:
+    com.group16.item: debug
+  pattern:
+    dateformat: HH:mm:ss:SSS
+  file:
+    path: "logs/${spring.application.name}"
+
+knife4j:
+  enable: true
+  openapi:
+    title: Store inventory interface document
+    description: "Store inventory interface document"
+    group:
+      default:
+        group-name: default
+        api-rule: package
+        api-rule-resources:
+          - com.group16.inventory.controller
