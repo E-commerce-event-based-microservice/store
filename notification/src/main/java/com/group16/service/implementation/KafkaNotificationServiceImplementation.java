@@ -23,7 +23,7 @@ public class KafkaNotificationServiceImplementation implements KafkaNotification
     public KafkaNotificationServiceImplementation(JavaMailSender emailSender) {
         this.emailSender = emailSender;
     }
-    @KafkaListener(topics = "userEvents", groupId = "inventory-group")
+   // @KafkaListener(topics = "userEvents", groupId = "inventory-group")
     @Override
     public void sendMessage(String message) {
         try {

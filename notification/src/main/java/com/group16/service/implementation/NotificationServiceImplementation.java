@@ -17,7 +17,7 @@ public class NotificationServiceImplementation implements NotificationService {
     public void sendEmail(String receiver, String subject, String message) {
         SimpleMailMessage simpleMail = new SimpleMailMessage();
         simpleMail.setFrom("dev16ops2024@gmail.com");
-        simpleMail.setTo(receiver);
+        simpleMail.setTo("dev16ops2024@gmail.com");
         simpleMail.setSubject(subject);
         simpleMail.setText(message);
 
