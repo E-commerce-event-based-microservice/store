@@ -1,7 +1,5 @@
 package com.group16.order.domain.dto;
 
-import com.group16.order.domain.po.OrderItem;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
@@ -15,4 +13,8 @@ import java.util.List;
 public class OrderFormDTO {
     @Schema(description = "List of ordered items")
     private List<OrderItemDTO> details;
+    @Schema(description = "billingAddressId")
+    private Long billingAddressId;
+    @Schema(description = "shippingAddressId")
+    private Long shippingAddressId;
 }

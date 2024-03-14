@@ -3,7 +3,6 @@ package com.group16.order.domain.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.group16.order.domain.enums.OrderStatus;
 import lombok.Data;
 
 import java.util.Date;

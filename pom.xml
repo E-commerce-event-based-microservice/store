@@ -26,7 +26,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Spring Boot and Spring Cloud dependencies -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -41,33 +40,29 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--spring cloud alibaba-->
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2022.0.0.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.alibaba.cloud</groupId>-->
+<!--                <artifactId>spring-cloud-alibaba-dependencies</artifactId>-->
+<!--                <version>2022.0.0.0</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>8.0.28</version>
                 <scope>runtime</scope>
             </dependency>
-            <!-- mybatis plus 管理 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>3.5.4.1</version>
             </dependency>
-            <!--hutool工具包-->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>5.8.23</version>
             </dependency>
-
             <dependency>
                 <groupId>com.group16</groupId>
                 <artifactId>common</artifactId>
@@ -102,25 +97,17 @@
     </dependencyManagement>
 
     <dependencies>
-        <!--swagger(OpenApi v3)-->
+        <!-- Spring Boot Web Starter -->
         <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>2.2.20</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--interface document by knife4j-->
+        <!-- MySQL Driver -->
         <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-            <version>4.5.0</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!-- lombok 管理 -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
-        </dependency>
-        <!--单元测试-->
+        <!--unit test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

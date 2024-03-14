@@ -2,12 +2,12 @@ package com.group16.order.controller;
 
 import com.group16.order.domain.po.Category;
 import com.group16.order.service.ICategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Parameter;
 
 import java.util.List;
 
@@ -15,15 +15,11 @@ import java.util.List;
 @Tag(name = "Category Management Interfaces") // Updated
 @RestController
 @RequestMapping("/categories")
+@AllArgsConstructor
 public class CategoryController {
 
     private final ICategoryService categoryService;
 
-    // Constructor-based DI for service layer
-    @Autowired
-    public CategoryController(ICategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     // Endpoint for creating a new category
     @Operation(summary = "Add a new category")
@@ -52,8 +48,7 @@ public class CategoryController {
     // Endpoint for updating an existing category
     @Operation(summary = "Update category by ID")
     @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@Parameter(description = "Category ID") @PathVariable Long id,
-                                                   @RequestBody Category categoryDetails) {
+    public ResponseEntity<Category> updateCategory(@Parameter(description = "Category ID") @PathVariable Long id, @RequestBody Category categoryDetails) {
         categoryDetails.setCategoryId(id);
         boolean updated = categoryService.updateById(categoryDetails);
         return updated ? ResponseEntity.ok(categoryDetails) : ResponseEntity.notFound().build();

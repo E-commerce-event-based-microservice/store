@@ -3,9 +3,9 @@ server:
 spring:
   application:
     name: inventory
-#  cloud:
-#    nacos:
-#      server-addr:127.0.0.1:8848
+  #  cloud:
+  #    nacos:
+  #      server-addr:127.0.0.1:8848
   profiles:
     active: local
   datasource:
@@ -13,6 +13,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ${store.db.pw}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect.storage_engine: innodb
+        hbm2ddl.auto: update
+  kafka:
+    bootstrap-servers: localhost:9092
 mybatis-plus:
   configuration:
     default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
@@ -21,6 +29,7 @@ mybatis-plus:
     db-config:
       update-strategy: not_null
       id-type: auto
+
 logging:
   level:
     com.group16.item: debug
@@ -30,10 +39,10 @@ logging:
     path: "logs/${spring.application.name}"
 
 knife4j:
-  enable: true
+  enable: false
   openapi:
-    title: Store inventory interface document
-    description: "Store inventory interface document"
+    title: Store order interface document
+    description: "Store order interface document"
     group:
       default:
         group-name: default

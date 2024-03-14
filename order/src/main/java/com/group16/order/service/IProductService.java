@@ -9,7 +9,11 @@ import java.util.Collection;
 import java.util.List;
 
 public interface IProductService extends IService<Product> {
-    List<ProductDTO> queryProductByIds(Collection<Long> ids);
+    List<Product> queryProductByIds(Collection<Long> ids);
 
-    void deductStock(List<OrderItemDTO> itemDTOS);
+    Product queryProductById(Long id);
+
+//    void deductStock(List<OrderItemDTO> itemDTOS);
+
+    void checkAndDeductStock(List<OrderItemDTO> itemDTOS);
 }

@@ -2,13 +2,12 @@ package com.group16.order.controller;
 
 import com.group16.order.domain.po.OrderItem;
 import com.group16.order.service.IOrderItemService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Parameter;
 
 import java.util.List;
 
@@ -20,7 +19,6 @@ import java.util.List;
 public class OrderItemController {
 
     private final IOrderItemService orderItemService;
-
 
     // Endpoint for creating a new order item
     @Operation(summary = "Create a new order item")
@@ -49,8 +47,7 @@ public class OrderItemController {
     // Endpoint for updating an existing order item
     @Operation(summary = "Update an existing order item by ID")
     @PutMapping("/{id}")
-    public ResponseEntity<OrderItem> updateOrderItem(@Parameter(description = "Order Item ID") @PathVariable Long id,
-                                                     @RequestBody OrderItem orderItemDetails) {
+    public ResponseEntity<OrderItem> updateOrderItem(@Parameter(description = "Order Item ID") @PathVariable Long id, @RequestBody OrderItem orderItemDetails) {
         orderItemDetails.setOrderItemId(id);
         boolean updated = orderItemService.updateById(orderItemDetails);
         return updated ? ResponseEntity.ok(orderItemDetails) : ResponseEntity.notFound().build();

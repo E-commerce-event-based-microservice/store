@@ -1,13 +1,17 @@
 package com.group16.order.controller;
 
+import cn.hutool.json.JSONUtil;
+import com.group16.common.utils.BeanUtils;
 import com.group16.order.domain.dto.OrderFormDTO;
 import com.group16.order.domain.po.Order;
+import com.group16.order.domain.vo.OrderVO;
 import com.group16.order.service.IOrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -22,18 +26,18 @@ import java.util.Map;
 public class OrderController {
 
     private final IOrderService orderService;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     // Create a new order
     @Operation(summary = "Create a new order")
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<?> createOrder(@RequestBody OrderFormDTO orderFormDTO) {
         try {
-            Long orderId = orderService.createOrder(orderFormDTO);
-            Map<String, Long> response = new HashMap<>();
-            response.put("orderId", orderId);
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            String orderJson = JSONUtil.toJsonStr(orderFormDTO);
+            kafkaTemplate.send("orderCreate", orderJson);
+            return ResponseEntity.ok().body("Order received, wait for Email!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Order creation failed: " + e.getMessage());
         }
     }
 
@@ -41,9 +45,8 @@ public class OrderController {
     // Retrieve an order by ID
     @Operation(summary = "Retrieve an order by ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@Parameter(description = "Order ID") @PathVariable Long id) {
-        Order order = orderService.getById(id);
-        return order != null ? ResponseEntity.ok(order) : ResponseEntity.notFound().build();
+    public OrderVO getOrderById(@Parameter(description = "Order ID") @PathVariable Long orderId) {
+        return BeanUtils.copyBean(orderService.getById(orderId), OrderVO.class);
     }
 
     // Retrieve all orders

@@ -1,13 +1,11 @@
 package com.group16.order.controller;
 
-import com.group16.order.domain.dto.ProductDTO;
 import com.group16.order.domain.po.Product;
 import com.group16.order.service.IProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +27,11 @@ public class ProductController {
         productService.save(product);
         return ResponseEntity.ok(product);
     }
+
     // Endpoint for querying products by ids
     @Operation(summary = "Query products by batch of IDs") // Updated
     @GetMapping("/byIds")
-    public List<ProductDTO> queryProductByIds(@RequestParam("ids") List<Long> ids) {
+    public List<Product> queryProductByIds(@RequestParam("ids") List<Long> ids) {
         return productService.queryProductByIds(ids);
     }
 

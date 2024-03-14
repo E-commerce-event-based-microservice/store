@@ -5,6 +5,5 @@ import com.group16.order.domain.dto.OrderFormDTO;
 import com.group16.order.domain.po.Order;
 
 public interface IOrderService extends IService<Order> {
-
     Long createOrder(OrderFormDTO orderFormDTO);
 }
