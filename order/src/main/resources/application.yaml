@@ -13,12 +13,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ${store.db.pw}
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-        dialect.storage_engine: innodb
-        hbm2ddl.auto: update
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#        dialect.storage_engine: innodb
+#        hbm2ddl.auto: update
   kafka:
     bootstrap-servers: localhost:9092
 mybatis-plus:
@@ -30,13 +30,13 @@ mybatis-plus:
       update-strategy: not_null
       id-type: auto
 
-logging:
-  level:
-    com.group16.item: debug
-  pattern:
-    dateformat: HH:mm:ss:SSS
-  file:
-    path: "logs/${spring.application.name}"
+#logging:
+#  level:
+#    com.group16.item: debug
+#  pattern:
+#    dateformat: HH:mm:ss:SSS
+#  file:
+#    path: "logs/${spring.application.name}"
 
 knife4j:
   enable: false

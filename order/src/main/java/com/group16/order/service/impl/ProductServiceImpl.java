@@ -26,16 +26,19 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     @Override
     @Transactional
-    public void checkAndDeductStock(List<OrderItemDTO> itemDTOS) {
+    public boolean checkAndDeductStock(List<OrderItemDTO> itemDTOS) {
         for (OrderItemDTO item : itemDTOS) {
             Product product = queryProductById(item.getItemId());
             if (product.getStockNumber() >= item.getNum()) {
                 product.setStockNumber(product.getStockNumber() - item.getNum());
                 updateById(product);
             } else {
-                throw new RuntimeException("not enough stock, order close!");
+                System.out.println("Insufficient stock for product: " + product.getName() + " (" + product.getProductId() + ")");
+                return false;
             }
         }
+
+        return true;
     }
 
 }

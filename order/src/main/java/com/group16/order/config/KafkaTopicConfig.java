@@ -7,11 +7,6 @@ import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
 public class KafkaTopicConfig {
-//    @Bean
-//    public NewTopic orderTopic() {
-//        return TopicBuilder.name("order").build();
-//    }
-
     @Bean
     public NewTopic orderCreateTopic() {
         return TopicBuilder.name("orderCreate").build();
@@ -20,5 +15,10 @@ public class KafkaTopicConfig {
     @Bean
     public NewTopic orderCreateSuccessTopic() {
         return TopicBuilder.name("orderCreateSuccess").build();
+    }
+
+    @Bean
+    public NewTopic orderCreateFailedTopic() {
+        return TopicBuilder.name("orderCreateFailed").build();
     }
 }
