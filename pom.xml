@@ -15,7 +15,6 @@
         <module>notification</module>
         <module>order</module>
         <module>gateway</module>
-        <module>common</module>
     </modules>
 
   <properties>
