@@ -3,11 +3,17 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-cart-service/
-common/
-item-service/
-store-api/
-trade-service/
+/cart-service/
+/common/
+/item-service/
+/store-api/
+/trade-service/
+/user-service/
+/.mvn/wrapper/maven-wrapper.jar
+/.mvn/wrapper/maven-wrapper.properties
+/.mvn/wrapper/maven-wrapper.xml
+/.mvn/wrapper/maven-wrapper.jar
+
 logs
 
 ### STS ###
