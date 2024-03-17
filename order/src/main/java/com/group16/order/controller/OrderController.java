@@ -1,10 +1,10 @@
 package com.group16.order.controller;
 
-import cn.hutool.json.JSONUtil;
-import com.group16.common.utils.BeanUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group16.order.domain.dto.OrderFormDTO;
 import com.group16.order.domain.po.Order;
 import com.group16.order.domain.vo.OrderVO;
+import com.group16.order.service.IOrderItemService;
 import com.group16.order.service.IOrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,26 +14,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-// REST controller for handling order-related requests
-@Tag(name = "Order Management Interfaces") // Swagger tag for order management
+@Tag(name = "Order Management Interfaces")
 @RestController
 @RequestMapping("/orders")
 @AllArgsConstructor
 public class OrderController {
 
     private final IOrderService orderService;
+    private final IOrderItemService orderItemService;
     private final KafkaTemplate<String, String> kafkaTemplate;
+    private final ObjectMapper objectMapper; // Autowired ObjectMapper
 
-    // Create a new order
-    @Operation(summary = "Create a new order")
     @PostMapping()
+    @Operation(summary = "Create a new order")
     public ResponseEntity<?> createOrder(@RequestBody OrderFormDTO orderFormDTO) {
         try {
-            String orderJson = JSONUtil.toJsonStr(orderFormDTO);
+            String orderJson = objectMapper.writeValueAsString(orderFormDTO);
             kafkaTemplate.send("orderCreate", orderJson);
             return ResponseEntity.ok().body("Order received, wait for Email!");
         } catch (Exception e) {
@@ -41,12 +39,22 @@ public class OrderController {
         }
     }
 
-
-    // Retrieve an order by ID
+    @GetMapping("/{orderId}")
     @Operation(summary = "Retrieve an order by ID")
-    @GetMapping("/{id}")
     public OrderVO getOrderById(@Parameter(description = "Order ID") @PathVariable Long orderId) {
-        return BeanUtils.copyBean(orderService.getById(orderId), OrderVO.class);
+        Order order = orderService.getById(orderId);
+        if (order != null) {
+            OrderVO orderVO = new OrderVO();
+            orderVO.setOrderId(order.getOrderId());
+            orderVO.setPrice(order.getPrice());
+            orderVO.setUserId(order.getUserId());
+            orderVO.setStatus(order.getStatus());
+            orderVO.setCreateTime(order.getDate());
+            //Also show a List of OrderItems
+            orderVO.setOrderItems(orderItemService.listByOrderId(orderId));
+            return orderVO;
+        }
+        return null; // Or handle it differently
     }
 
     // Retrieve all orders
