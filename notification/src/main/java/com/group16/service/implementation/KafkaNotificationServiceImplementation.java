@@ -2,6 +2,7 @@ package com.group16.service.implementation;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.group16.Dto.Order;
 import com.group16.Dto.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,19 +24,23 @@ public class KafkaNotificationServiceImplementation implements KafkaNotification
     public KafkaNotificationServiceImplementation(JavaMailSender emailSender) {
         this.emailSender = emailSender;
     }
+<<<<<<< Updated upstream
    // @KafkaListener(topics = "userEvents", groupId = "inventory-group")
+=======
+    @KafkaListener(topics = "orderCreate", groupId = "group16.order")
+>>>>>>> Stashed changes
     @Override
     public void sendMessage(String message) {
         try {
-            User userDto = objectMapper.readValue(message, User.class);
-            logger.info("Received user registration event in Notification Service: {}", userDto.getPhoneNumber());
-            System.out.println("Received user registration event in Notification Service: " + userDto.getPhoneNumber());
+            Order orderDto = objectMapper.readValue(message, Order.class);
+            logger.info("Received user order create event in Notification Service: {}", orderDto.getOrderId());
+            System.out.println("Received order create event in Notification Service: " + orderDto.getOrderId());
 
             SimpleMailMessage simpleMail = new SimpleMailMessage();
             simpleMail.setFrom("dev16ops2024@gmail.com");
-            simpleMail.setTo(userDto.getEmail());
+            simpleMail.setTo("dev16ops2024@gmail.com");
             simpleMail.setSubject("TEST");
-            simpleMail.setText(message);
+            simpleMail.setText("Your order id is " + orderDto.getOrderId());
 
             this.emailSender.send(simpleMail);
 
