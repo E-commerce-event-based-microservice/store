@@ -2,6 +2,7 @@ package com.group16.controller;
 
 import com.group16.dto.UserResponseDto;
 import com.group16.model.User;
+import com.group16.repository.IUserRepository;
 import com.group16.service.UserService;
 import com.group16.service.KafkaProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @RestController
 public class UserController {
 
@@ -22,6 +25,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private IUserRepository repository;
 
     @PostMapping("/public/api/users")
     public User createUser(@RequestBody User user) {
@@ -46,7 +51,7 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PatchMapping("/api/users/{id}")
+    @PatchMapping("/public/api/users/{id}")
     public ResponseEntity<UserResponseDto> updateUser(@PathVariable("id") Long id, @RequestBody User userDetails) {
         return userService.findUserById(id)
                 .map(existingUser -> {
@@ -68,6 +73,28 @@ public class UserController {
                     return ResponseEntity.ok(userDTO);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    //Should be stored in cookie for authorization
+    @PostMapping("/api/userId/{email}/")
+    public long getUserById(@PathVariable("email") String email) {
+        return userService.getIdByEmail(email);
+    }
+
+    //If it returns 0, it means that the security answer is incorrect
+    //if it returns -1, the user does not exist in the user database
+    @PostMapping("/public/users/checkAnswer")
+    public long checkSecurityAnswer(@RequestBody User userDetails) {
+        long correctAnswer = 0;
+        Optional<User> optional = repository.findByEmail(userDetails.getEmail());
+        if (optional.isEmpty()) {
+            correctAnswer = -1;
+        }
+        User existingUser = optional.get();
+        if (userDetails.getPasswordResetAnswer().equalsIgnoreCase(existingUser.getPasswordResetAnswer())) {
+            correctAnswer = existingUser.getId();
+        }
+        return correctAnswer;
     }
 
 

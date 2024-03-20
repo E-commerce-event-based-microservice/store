@@ -33,6 +33,9 @@ public class AuthService {
             user.setEmail(registrationRequest.getEmail());
             user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
             user.setRole(registrationRequest.getRole());
+            user.setPasswordResetQuestion(registrationRequest.getPasswordResetQuestion());
+            user.setPasswordResetAnswer(registrationRequest.getPasswordResetAnswer());
+
             User userResult = repository.save(user);
             if (userResult != null && userResult.getId()>0) {
                 resp.setUser(userResult);
