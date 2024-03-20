@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,6 +50,7 @@ public class OrderController {
             orderVO.setUserId(order.getUserId());
             orderVO.setStatus(order.getStatus());
             orderVO.setCreateTime(order.getDate());
+            orderVO.setUserId(order.getUserId());
             //Also show a List of OrderItems
             orderVO.setOrderItems(orderItemService.listByOrderId(orderId));
             return orderVO;
@@ -58,30 +58,23 @@ public class OrderController {
         return null; // Or handle it differently
     }
 
+    @GetMapping("/user/{userId}")
+    @Operation(summary = "Retrieve orders by ID")
+    public ResponseEntity<List<Order>> getOrdersById(@Parameter(description = "userId") @PathVariable Long userId) {
+        List<Order> orders = orderService.getOrdersByuserId(userId);
+        if (orders != null && !orders.isEmpty()) {
+            return ResponseEntity.ok(orders);
+        }
+        return ResponseEntity.notFound().build(); // Or handle it differently
+    }
+
     @Operation(summary = "Retrieve all orders")
     @GetMapping
     public ResponseEntity<List<Order>> getAllOrders() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println("Order created by user: " + username);
         List<Order> orders = orderService.list();
         return ResponseEntity.ok(orders);
     }
 
-//    @Operation(summary = "Retrieve all orders")
-//    @GetMapping
-//    public ResponseEntity<List<Order>> getAllOrders() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication != null && authentication.isAuthenticated()) {
-//            String username = authentication.getName();
-//            System.out.println("Order created by user: " + username);
-//        } else {
-//            System.out.println("User is not authenticated");
-//        }
-//        List<Order> orders = orderService.list();
-//        return ResponseEntity.ok(orders);
-//    }
-
-    // Update an order
     @Operation(summary = "Update an order by ID")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateOrder(@Parameter(description = "Order ID") @PathVariable Long id, @RequestBody Order order) {
@@ -90,7 +83,6 @@ public class OrderController {
         return ResponseEntity.ok().build();
     }
 
-    // Delete an order by ID
     @Operation(summary = "Delete an order by ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@Parameter(description = "Order ID") @PathVariable Long id) {
