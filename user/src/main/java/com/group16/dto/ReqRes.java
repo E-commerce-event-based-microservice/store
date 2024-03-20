@@ -4,9 +4,8 @@ package com.group16.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.group16.model.User;
+import jakarta.persistence.Column;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -24,4 +23,6 @@ public class ReqRes {
     private String role;
     private String password;
     private User user;
+    private String PasswordResetQuestion;
+    private String PasswordResetAnswer;
 }

@@ -1,21 +1,30 @@
 package com.group16.model;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
+
 @Entity
 public class User implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(nullable = false)
+    private String email;
+    @Column(nullable = false)
+    private String password;
+    @Column
+    private String role;
+    @Column(nullable = false)
+    private String PasswordResetQuestion;
+    @Column(nullable = false)
+    private String PasswordResetAnswer;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role));
@@ -50,16 +59,6 @@ public class User implements UserDetails {
         return true;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column
-    private String email;
-    @Column
-    private String password;
-    @Column
-    private String role;
-
     public long getId() {
         return id;
     }
@@ -86,5 +85,21 @@ public class User implements UserDetails {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPasswordResetQuestion() {
+        return PasswordResetQuestion;
+    }
+
+    public void setPasswordResetQuestion(String passwordResetQuestion) {
+        PasswordResetQuestion = passwordResetQuestion;
+    }
+
+    public String getPasswordResetAnswer() {
+        return PasswordResetAnswer;
+    }
+
+    public void setPasswordResetAnswer(String passwordResetAnswer) {
+        PasswordResetAnswer = passwordResetAnswer;
     }
 }

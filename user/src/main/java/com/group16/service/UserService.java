@@ -30,6 +30,10 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
     }
 
+    public long getIdByEmail(String email){
+        return repository.findByEmail(email).get().getId();
+    }
+
     public List<User> findAllUsers() {
         return repository.findAll();
     }
