@@ -17,4 +17,6 @@ public class OrderFormDTO {
     private Long billingAddressId;
     @Schema(description = "shippingAddressId")
     private Long shippingAddressId;
+    @Schema(description = "userId")
+    private Long userId;
 }

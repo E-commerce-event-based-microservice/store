@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +38,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         order.setBillingAddressId(orderFormDTO.getBillingAddressId());
         order.setShippingAddressId(orderFormDTO.getShippingAddressId());
+        order.setUserId(orderFormDTO.getUserId());
         order.setDate(LocalDateTime.now()); // Using java.time.LocalDateTime
         order.setStatus(OrderStatus.PROCESSING.getStatus());
 
@@ -64,5 +66,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         System.out.println("Order created: " + order.getOrderId());
 
         return order.getOrderId();
+    }
+
+    @Override
+    public List<Order> getOrdersByuserId(Long userId) {
+        return this.query().eq("userId", userId).list();
+    }
+
+    @Override
+    public Order getOrderById(Long orderId) {
+        return (Order) this.query().eq("orderId", orderId).list();
     }
 }
