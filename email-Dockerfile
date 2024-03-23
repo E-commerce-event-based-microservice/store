@@ -1,0 +1,10 @@
+# Step 1: Build the entire Maven project
+FROM jelastic/maven:3.9.5-openjdk-21 as builder
+COPY . /notification/src/app
+WORKDIR /notification/src/app
+RUN mvn clean package -DskipTests
+
+# Step 2: run notification service's jar 
+FROM openjdk:21-jdk
+COPY --from=builder /notification/src/app/notification/target/notification-*.jar /app/notification-service.jar
+ENTRYPOINT ["java", "-jar", "/app/notification-service.jar"]
