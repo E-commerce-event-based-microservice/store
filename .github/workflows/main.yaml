@@ -3,10 +3,10 @@
   on:
      push:
       branches:
-        - main
+        - DVOP_0030_Abdullah_deployment
      pull_request:
       branches:
-        - main
+        - DVOP_0030_Abdullah_deployment
     
   env:
     IMAGE_NAME:  user_service
