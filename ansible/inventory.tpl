@@ -1,5 +1,8 @@
 [APIG]
-${APIG}
+${APIG} 
+
+[APIG:vars]
+albIp=${albIp}
 
 [kafka]
 ${kafka}

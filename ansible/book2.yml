@@ -8,17 +8,17 @@
         name: openjdk-17-jre
         state: present
 
-    # - name: copy gateway jar
-    #   ansible.builtin.copy:
-    #     src:  gateway/target/gateway-0.0.1-SNAPSHOT.jar
-    #     dest: /home/ubuntu/gateway.jar
-    #     owner: ubuntu
-    #     mode: '666'
+    - name: copy gateway jar
+      ansible.builtin.copy:
+        src:  ../gateway/target/gateway-0.0.1-SNAPSHOT.jar
+        dest: /home/ubuntu/gateway.jar
+        owner: ubuntu
+        mode: '666'
         # remote_src: yes
 
-    - name: run jar
+    - name: run gateway jar
       environment:
-        USERS_ROUTE_URI: internal-store-alb-2056887998.us-east-1.elb.amazonaws.com
+        ALB_URI: "{{albIp}}"
       ansible.builtin.shell:
         cmd: nohup sudo java -jar gateway.jar &
     
@@ -40,6 +40,6 @@
         # group: foo
         mode: '666'
 
-    - name: run docker-compose
+    - name: run docker-compose to setup kafka and zookeeper
       ansible.builtin.shell:
         cmd: sudo docker-compose up -d
