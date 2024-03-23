@@ -19,4 +19,6 @@ public class OrderFormDTO {
     private Long shippingAddressId;
     @Schema(description = "userId")
     private Long userId;
+    @Schema(description = "email")
+    private String email;
 }

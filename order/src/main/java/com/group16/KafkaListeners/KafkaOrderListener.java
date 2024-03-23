@@ -27,11 +27,13 @@ public class KafkaOrderListener {
             System.out.println("Received order: " + orderFormDTO);
             // Create a new order
             Long orderID = orderService.createOrder(orderFormDTO);
+
+            String emailEvent = "{\"orderId\":" + orderID.toString() + ", \"email\":"+ "\"" + orderFormDTO.getEmail() + "\"" +"}";
             // Check inventory and attempt to reduce stock, update the order status upon success
             if (productService.checkAndDeductStock(orderFormDTO.getDetails())){
-                kafkaMessageService.sendMessage("orderCreateSuccess", orderID.toString());
+                kafkaMessageService.sendMessage("orderCreateSuccess", emailEvent);
             } else {
-                kafkaMessageService.sendMessage("orderCreateFailed", "Insufficient stock for order: " + orderID);
+                kafkaMessageService.sendMessage("orderCreateFailed", "Insufficient stock for order: " + emailEvent);
                 orderService.removeById(orderID);
             }
         } catch (Exception e) {
