@@ -9,16 +9,15 @@ spring:
   cloud.gateway.mvc:
     routes:
       - id: users-route
-        uri: ${USERS_ROUTE_URI:http://localhost:8081}
+        uri: ${ALB_URI:http://localhost:8080}
         predicates:
-        - Path=/users/**
+        - Path=/**
         filters:
         # - PrefixPath=/api
       - id: orders-route
-        uri: ${ORDERS_ROUTE_URI:http://localhost:8089}
+        uri: ${ALB_URI:http://localhost:8089}
         predicates:
-        - Path=/orders/**
-        - Header=Authorization, Bearer [A-Za-z0-9-_.]*
+        - Path=/**
         filters:
         # - PrefixPath=/api
       
@@ -26,3 +25,4 @@ logging:
   level:
     org.springframework.cloud.gateway.server.mvc: TRACE
     org.springframework.web: TRACE
+
