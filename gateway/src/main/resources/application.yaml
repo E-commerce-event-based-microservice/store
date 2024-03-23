@@ -15,7 +15,7 @@ spring:
         filters:
         # - PrefixPath=/api
       - id: orders-route
-        uri: ${ORDERS_ROUTE_URI:http://localhost:8082}
+        uri: ${ORDERS_ROUTE_URI:http://localhost:8089}
         predicates:
         - Path=/orders/**
         - Header=Authorization, Bearer [A-Za-z0-9-_.]*

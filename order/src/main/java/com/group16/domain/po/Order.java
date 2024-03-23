@@ -20,6 +20,7 @@ public class Order {
     private Long userId;
     private Long shippingAddressId;
     private Long billingAddressId;
+    private String email;
 
 
     public void addOrderItem(Long itemId, Integer num) {

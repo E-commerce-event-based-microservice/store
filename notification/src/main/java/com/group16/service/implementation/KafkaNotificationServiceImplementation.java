@@ -2,7 +2,6 @@ package com.group16.service.implementation;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.group16.Dto.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -10,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import com.group16.service.KafkaNotificationService;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import com.group16.Dto.OrderFormDTO;
 
 @Service
 public class KafkaNotificationServiceImplementation implements KafkaNotificationService {
@@ -23,21 +22,21 @@ public class KafkaNotificationServiceImplementation implements KafkaNotification
     public KafkaNotificationServiceImplementation(JavaMailSender emailSender) {
         this.emailSender = emailSender;
     }
-    @KafkaListener(topics = "userEvents", groupId = "inventory-group")
+    @KafkaListener(topics = "orderCreateSuccess", groupId = "group16.order")
     @Override
-    public void sendMessage(String message) {
+    public void sendOrderConformation(String message) {
         try {
-            User userDto = objectMapper.readValue(message, User.class);
-            logger.info("Received user registration event in Notification Service: {}", userDto.getPhoneNumber());
-            System.out.println("Received user registration event in Notification Service: " + userDto.getPhoneNumber());
-
+            System.out.println("Received order: " + message);
+            OrderFormDTO orderFormDTO = objectMapper.readValue(message, OrderFormDTO.class);
+            System.out.println("Received order: " + orderFormDTO.getEmail());
             SimpleMailMessage simpleMail = new SimpleMailMessage();
             simpleMail.setFrom("dev16ops2024@gmail.com");
-            simpleMail.setTo(userDto.getEmail());
-            simpleMail.setSubject("TEST");
-            simpleMail.setText(message);
+            simpleMail.setTo(orderFormDTO.getEmail());
+            simpleMail.setSubject("Order Created");
+            simpleMail.setText("Your order has been created! Your order ID is " + orderFormDTO.getOrderId());
 
             this.emailSender.send(simpleMail);
+
 
         } catch (Exception e) {
             logger.error("Error processing message: {}", message, e);

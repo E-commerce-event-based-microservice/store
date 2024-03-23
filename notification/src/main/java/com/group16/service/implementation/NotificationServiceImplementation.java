@@ -23,4 +23,6 @@ public class NotificationServiceImplementation implements NotificationService {
 
         this.emailSender.send(simpleMail);
     }
+
+
 }

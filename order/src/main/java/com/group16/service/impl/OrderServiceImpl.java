@@ -41,6 +41,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setUserId(orderFormDTO.getUserId());
         order.setDate(LocalDateTime.now()); // Using java.time.LocalDateTime
         order.setStatus(OrderStatus.PROCESSING.getStatus());
+        order.setEmail(orderFormDTO.getEmail());
 
         // Calculate the total price of the order
         double total = orderFormDTO.getDetails().stream().mapToDouble(item -> {
