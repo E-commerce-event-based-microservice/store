@@ -4,7 +4,7 @@ COPY . /order/src/app
 WORKDIR /order/src/app
 RUN mvn clean package -DskipTests
 
-# Step 2: run user service's jar 
+# Step 2: run order service's jar 
 FROM openjdk:21-jdk
 COPY --from=builder /order/src/app/order/target/order-*.jar /app/order-service.jar
 ENTRYPOINT ["java", "-jar", "/app/order-service.jar"] 
