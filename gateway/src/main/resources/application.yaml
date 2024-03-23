@@ -8,19 +8,31 @@ spring:
       enabled: true
   cloud.gateway.mvc:
     routes:
-      - id: users-route
+      - id: auth-route
         uri: ${ALB_URI:http://localhost:8080}
         predicates:
-        - Path=/**
-        filters:
-        # - PrefixPath=/api
+        - Path=/auth/**
+      - id: public-route
+        uri: ${ALB_URI:http://localhost:8080}
+        predicates:
+          - Path=/public/**
+      - id: api-route
+        uri: ${ALB_URI:http://localhost:8080}
+        predicates:
+          - Path=/api/**
       - id: orders-route
         uri: ${ALB_URI:http://localhost:8089}
         predicates:
-        - Path=/**
-        filters:
-        # - PrefixPath=/api
-      
+        - Path=/orders/**
+      - id: products-route
+        uri: ${ALB_URI:http://localhost:8089}
+        predicates:
+          - Path=/products/**
+      - id: orderItems-route
+        uri: ${ALB_URI:http://localhost:8089}
+        predicates:
+          - Path=/orderItems/**
+
 logging:
   level:
     org.springframework.cloud.gateway.server.mvc: TRACE
