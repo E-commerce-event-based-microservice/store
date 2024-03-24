@@ -4,7 +4,7 @@ resource "aws_db_instance" "userService_RDS_instance" {
   storage_type        = "gp2"
   engine              = "mysql"
   engine_version      = "5.7"
-  instance_class      = "db.t2.micro"
+  instance_class      = "db.t3.micro"
   db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.id
   vpc_security_group_ids = [aws_security_group.user_rds_sg.id]
   # multi_az = true
@@ -29,7 +29,7 @@ resource "aws_db_instance" "orderService_RDS_instance" {
   storage_type        = "gp2"
   engine              = "mysql"
   engine_version      = "5.7"
-  instance_class      = "db.t2.micro"
+  instance_class      = "db.t3.micro"
   db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.id
   vpc_security_group_ids = [aws_security_group.order_rds_sg.id]
 
