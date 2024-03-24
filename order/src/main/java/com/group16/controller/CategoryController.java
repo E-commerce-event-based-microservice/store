@@ -1,7 +1,7 @@
 package com.group16.controller;
 
 import com.group16.domain.po.Category;
-import com.group16.service.ICategoryService;
+import com.group16.ICategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,4 +1,4 @@
-package com.group16.service;
+package com.group16;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.group16.domain.po.Category;

@@ -1,9 +1,9 @@
-package com.group16.service.impl;
+package com.group16.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.group16.IOrderItemService;
 import com.group16.domain.po.OrderItem;
 import com.group16.mapper.OrderItemMapper;
-import com.group16.service.IOrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

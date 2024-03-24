@@ -1,7 +1,7 @@
 package com.group16.controller;
 
 import com.group16.domain.dto.ShippingAddressDTO;
-import com.group16.service.IShippingAddressService;
+import com.group16.IShippingAddressService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

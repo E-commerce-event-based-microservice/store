@@ -1,4 +1,4 @@
-package com.group16.service.implementation;
+package com.group16.implementation;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import com.group16.service.KafkaNotificationService;
+import com.group16.KafkaNotificationService;
 import org.springframework.mail.SimpleMailMessage;
 import com.group16.Dto.OrderFormDTO;
 

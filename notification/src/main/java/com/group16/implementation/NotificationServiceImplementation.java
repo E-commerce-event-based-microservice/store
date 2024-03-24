@@ -1,6 +1,6 @@
-package com.group16.service.implementation;
+package com.group16.implementation;
 
-import com.group16.service.NotificationService;
+import com.group16.NotificationService;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;

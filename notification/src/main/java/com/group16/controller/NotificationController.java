@@ -1,8 +1,8 @@
 package com.group16.controller;
 
 import com.group16.reasource.MailFormat;
-import com.group16.service.NotificationService;
-import com.group16.service.KafkaNotificationService;
+import com.group16.NotificationService;
+import com.group16.KafkaNotificationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;

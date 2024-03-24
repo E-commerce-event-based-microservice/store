@@ -1,7 +1,7 @@
 package com.group16.controller;
 
 import com.group16.domain.po.OrderItem;
-import com.group16.service.IOrderItemService;
+import com.group16.IOrderItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

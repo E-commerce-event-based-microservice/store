@@ -25,7 +25,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("TRIGGER FROM ORDER!!  Username is: " + username);
         return repository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
     }
@@ -56,4 +55,6 @@ public class UserService implements UserDetailsService {
     public void deleteUser(Long id) {
         repository.deleteById(id);
     }
+
+
 }

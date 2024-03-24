@@ -1,7 +1,7 @@
 package com.group16.controller;
 
 import com.group16.domain.po.Product;
-import com.group16.service.IProductService;
+import com.group16.IProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
